@@ -1,0 +1,35 @@
+typedef struct {
+        char magic[3];  //"SYM"
+        byte revision;  //1
+        long filesize;  //was wohl, inkl. Header
+        long srcstart;  //offset Source
+        long srctable;  //offset Linien/Offset-Tabelle
+        long vartable;  //offset Variabeln-Tabelle
+        long functable; //offset Functions-Tabelle
+	} SymHeader_t;
+
+typedef struct {
+        word lnumber;
+        long loffset;
+        } lindex_t;
+
+typedef struct {
+	int vnumber;
+	int vfunc;
+	char vname[28];
+	} vindex_t;
+
+typedef struct {
+	int fnumber;
+	int foffset;
+	} findex_t;
+
+
+File-Aufbau:
+
+SymHeader_t     SymHeader;
+//hier kommt der source
+lindex_t        LineIndex[];    //letzter Eintrag hat lnumber = -1
+vindex_t        VarIndex[];     //letzter Eintrag hat vnumber = -1
+findex_t        FuncIndex[];    //letzter Eintrag hat fnumber = -1
+

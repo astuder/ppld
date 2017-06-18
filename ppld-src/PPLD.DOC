@@ -1,0 +1,319 @@
+
+                             PPLD V3.20
+
+                   (C)1994-97 Chicken [Tools4Fools]
+
+                          This is No-Ware
+                       Get lost to register !
+
+
+     -----------------------------------------------------------
+
+
+WHAT IS PPLD GOOD FOR ?
+
+Makes your potatoes grow BIGGER !
+Gives you a body IRRESTIBLE to ANY kind of girls !
+Cures your aunts gout, hunchback AND PERITONITIS !
+Makes your wedding dress DAZZLING white !
+Brings you BILLIONS of dollars ! (send me $186.43 for more details)
+Kills ANYTHING with more than four legs tickling in your hair !
+
+Ah  yeah, and besides this, it  decompiles  the  PCBoard  Programming
+Language Executables (.PPE) back  to  what they were  before  the so-
+called compilation. Well, they call it compilation, in fact it's just
+a translation  to tockens simple  enough to be executed by the stupid
+interpreter (my C-64 did it too).
+
+[philosophical intermezzo ON]
+
+  As long as Clark Development Company Inc. can't come up with a REAL
+  compiler there will be decompilers by me or  by others. CDC started
+  to  encrypt the .PPEs created  with  PPLC 3.0 and  newer.  The only
+  effect is even more slowness, nothing else.  Ah yes, it also  makes
+  it harder for talented coders to protect their work  with some well
+  misplaced bytes (Anti Decompiling System). Dear CDC developers, why
+  not creating some real ASM code ?  PPEs would run at a decent speed
+  and decompilers would be dead forever.  Right, real compilers are a
+  bit trickier to do.  But hey !  What are you getting your bucks for
+  then ?
+
+  Thank you.
+
+[philosophical intermezzo OFF]
+
+
+     -----------------------------------------------------------
+
+
+BUT HOW TO USE IT ?
+
+ppld [options] srcname[.ext] [dstname[.ext]]
+
+Standard  extensions are:  for source .PPE,  for destination .PPD (to
+prevent overwriting of existing source code).
+
+Options:
+
+/NOTRACE  - Disable Trace Mode
+            PPLD will decompile the whole code and therefore probably
+            get traped by an  anti decompiling  trick. But if it gets
+            through, you can seek for disabled features  and mindless
+            coders.
+
+/SYMBOLIC - Create Symbolic File
+            PPLD will add debugging  information to  the source. This
+            .SYM file is required to trace a PPE with PPLDebug. Check
+            out the PPLDebug docs.
+
+
+     -----------------------------------------------------------
+
+
+TROUBLE SHOOTINGS (BLAM BLAM, YOU'RE DEAD)
+
+PPLC replaces all FOR/WHILE/CASE/... thingies with IF/GOTO statements
+and rearranges  IF [..] THEN [..] ENDIF like this (with ELSE it  gets
+even worse):
+
+        IF [..] THEN
+        [..]
+        ENDIF           ..is compiled as:
+
+        IF ![..] GOTO LABEL
+        [..]
+        :LABEL
+
+Little hint: As the  usage of FOR [...] NEXT causes a real mess  with
+lotta useless worstcase bound checkings, your program will run faster
+when  you  implement the routine  using WHILE or an  own IF [..] THEN
+construction.
+
+Serious crashes can be caused by the following reasons:
+
+     a) A REAL big .PPE needs too many labels.
+        "can't imagine"
+
+     b) A REAL nasty line gets too long.
+        "we think our .ppe isn't slow enough"
+        (seems to get common to make 1000 times 1+1, but let me warn
+         you that this costs you several kbytes of stack and makes
+         your .ppe running sloooooooooow)
+
+     c) A REAL ugly expression needs too much iterations.
+        "recursion rulez"
+
+     d) I created buggy translation tables.
+        "beautiful secretaries can't type"
+
+It is possible that a .PPE doesn't recompile to the same size for the
+following reasons:
+
+     a) PPLD will skip unused code.  (Use the /NOTRACE option to dis-
+        able this feature)
+        "this one is called *AI Optimation Mode*"
+
+     b) PPLD just forgets about variables defined but not used in the
+        code. (variables are recognized upon usage at positions where
+        PPLC requires VAR as function/statement parameter)
+        "this one is called *AI Optimation Mode* too"
+
+     c) You have to  compile with the same commandline options as the
+        author used for the original .PPE.
+        "my two-lines-ppe takes only one kilobyte"
+
+     d) There are some quite strange .PPEs with only half of the pre-
+        defined user variables included.
+        "public betas suck"
+
+     e) There's a bug in PPLC. You'll get a note in the .PPD if this
+        bug was used to protect the .PPE from decompiling.
+
+It is possible that a .PPE doesn't recompile at all for the following
+reasons:
+
+     a) With some tricks, it's possible to use the  ENDPROC / ENDFUNC
+        statements before the real end of a procedure/function.
+
+        Example: IF condition THEN
+                    ENDPROC             ;the early end
+                 ENDIF
+                 [...]
+                 ENDPROC                ;the real end
+
+                 This code will decompile to something like:
+
+                 IF !condition GOTO label
+                 ENDPROC                ;the early end
+                 :label
+                 [...]
+                 ENDPROC                ;the real end
+
+        The problem with this is, that PPLC refuses to recompile this
+        code  as  it refuses  to know  the label  behind the  ENDPROC
+        statement.  To make it working again,  just retype it  in the
+        original IF .. THEN .. ENDIF style.  Hope to fix this in next
+        century.
+
+At the end of  the source, is a list of used functions/statements. If
+you encounter some missing names or ???s the command is unknown.
+
+
+     -----------------------------------------------------------
+
+
+MESSAGES:
+
+Lone Runner     How's your compiler going ?
+
+X-Con           Alive ?  Send me a mail !
+
+PPE Coders      Don't write me: PPLD is great to learn PPL...
+                Be honest     : Send me latest PPLD so I can go on
+                                ripping state-of-the-art lightbars.
+
+Real Programmer Tools 4 Fools wants YOU !
+                Don't hesitate to contact us.
+
+CDC             Rumours are telling PCB 15.3 will beat shit out of
+                PPLD & co ?
+
+   
+     -----------------------------------------------------------
+
+
+REVISION HISTORY:
+
+25.06.94        release of version 1.00 (nightmares get real!)
+
+01.07.94        release of version 1.01 (bugs, bugs, bugs!)
+                - bugfix: decompiled LANGTEXT instead of LANGEXT
+                - bugfix: decompiled FPUTAD instead of FPUTPAD
+                - bugfix: decompiled CDKCHON instead of CDCHKON
+                - bugfix: decompiled UNOPER instead of UN_OPER
+                - bugfix: decompilation errors on statement FFLUSH
+                - bugfix: decompilation errors on statement REDIM
+                - bugfix: decompilation errors on statement SORT
+                - bugfix: added missing statement MOUSEREG
+                - bugfix: added missing statement BRAG
+                - bugfix: added missing statement FREALTUSER
+                - bugfix: added missing function HIMSGNUM
+                - bugfix: added missing function LOMSGNUM
+                - bugfix: added missing function KBDFILUSED
+                - bugfix: added missing function PPLBUFSIZE
+                - bugfix: added missing function KBDBUFSIZE
+                - bugfix: added missing function FLAGCNT
+                - bugfix: out of memory on ppe without vars/constants
+
+20.08.94        release of version 1.02 (it's alive!)
+                * recursive trace mode to detect decompiling traps.
+                  This  prevents PPLD  from decompiling passages with
+                  unknown functions/statements.
+                  As side effect it won't decompile unused code.
+                * added /NOTRACE option to turn off trace mode and
+                  its "features".
+                - bugfix: decompilation errors on VARSEG, VAROFFS,
+                  VARADDR, SCRFILE after SORT-bugfix in last version
+
+22.09.94        release of version 2.00 (the fake!)
+                !!!!!!!! DON'T USE IT, IT'S A TROYAN !!!!!!!!
+
+13.10.95        release of version 3.00 (who says late?)
+                * added PPLC 3.0 decryption
+                * added PPLC 3.0 new statements/functions/types...
+                * added PPLC 3+ procedures/functions
+                * added PPLC 3.10 decryption (which doesn't pack 0's
+                  if there's no gain in it)
+                * added PPLC 3.10 new statements/functions
+                * added PPLC 3.20 new statements/functions
+                * added !0+!0 bug detection
+                - bugfix: decrypting aborted even everything was ok
+                - bugfix: trace aborted on jump to program start/end
+                - bugfix: 4 times more memory for BIIIIIIIG strings
+                - bugfix: correct output of floatingpoint constants
+                  ARGH! costs 10kb of executable size!!!
+                  (hmm, wonder why you didn't notice this ? are PPE
+                  coders too stupid to use 'em ?)
+
+16.05.96        release of version 3.10 (a new dimension)
+                * added /SYMBOLIC option to create symbolic files for
+                  PPLDebug, see also PPLDEBUG.DOC
+                * added simple-WHILE analyzing so recompiled ppe will
+                  work now, eg: WHILE (var="") var=INKEY()
+                  (HEY! this was THAT obvious and not a single bug
+                   report reached me !?)
+                + updated PPLC bug-info
+                - bugfix: mixed up labels in ppe with more than 32k
+                  bytes of code
+                - bugfix: trace aborted on WHILE statement
+                - bugfix: correct handling of INT, SBYTE, SWORD etc.
+                  constants (used by Acidic to fuckup PPLD, bad boys)
+                - bugfix: now correctly counts lines with PPLC bugs
+
+13.03.97        release of version 3.20 (nothing new)
+                + new symbolic file format for PPLDebug 1.1b
+                - saved 2kb of size, is there something missing ?
+
+The version  with Clark Development copyrights is a fake/ripoff/patch
+of PPLD version 1.00 by unknown losers (same code, same bugs).
+
+The version 2.00  released by an unknown  lamer in september '94 is a
+troyan and will most probably delete your harddisk.
+
+
+     -----------------------------------------------------------
+
+
+CONTACT THE AUTHOR !
+
+If you got an idea for some features, dig it :).
+But for chitchat, donations, news about  PPLC 4.0, hate mails or bugs
+(yeah, shame on YOU for not reporting them!) ...
+
+call The Lycaeum:     +41 41-484-2989 [ZYX V34]
+                      +41 41-484-3289 [USR V34]
+
+email via InterNet:   chicken@space.ch
+
+or snail mail:        Adrian Studer
+                      Hauptstrasse 54
+                      6170 SchÅpfheim
+                      Switzerland
+
+
+     -----------------------------------------------------------
+
+
+COPYRIGHTS:
+
+PPLD is copyright of the author.  The author allows to: use software,
+make copies  of it, give copies to anybody  and distribute it through
+electronic media.
+
+It  is not  allowed to ask  for money or  donations for  any  copy or
+copies of the  program,  neither distribute the software and/or docu-
+mentation with commercial products and/or donuts.
+
+
+     -----------------------------------------------------------
+
+
+DISK-LAMER:
+
+The author denies any responsibilities for illegal acts involving the
+(mis)use  of PPLD.  It  is  illegal (and lame) to  spread  copies  of
+tampered and/or modified PPEs.
+
+Pay fair prices to fair shareware authors (like us ?)
+
+This EXCLUDES software which:
+        a) contains backdoors
+     or b) consists of less than 50 lines code
+     or c) costs  more than $20 (don't tell me you invested months in
+           your one-in-thousands-so-fucking-boring-online-game)
+
+This INCLUDES the great work of the rare REAL coders doing .PPEs !
+
+
+     -----------------------------------------------------------
+             ! T4F, INCREASES THE QUALITY OF YOUR LIFE !

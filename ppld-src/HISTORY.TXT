@@ -1,0 +1,119 @@
+PCBoard Programming Language Decompiler 1.02á0    (C)1994 Chicken/ECR
+---------------------------------------------------------------------
+
+                      INTERNAL USE ONLY !!!!!
+
+---------------------------------------------------------------------
+
+History:
+--------
+
+1.00á   26.05.94  first working version
+
+1.00á2  27.05.94  this version will decompile 99% (last was about 80%)
+                  * bracktes striping algorythm (c) by me
+                  * output predefined variables/constants with name
+                  + way faster label processing
+                  + nicer text output
+                  - bugfix crash on STARTDISP
+                  - bugfix for strings including quotes (").
+
+1.00á3  27.05.94  uuuuh, lotta bugs, hope this one will work out 99%
+                  - bugfix crash on BEEP (undocumented statement)
+                  - bugfix crash on FWRITE/FDWRITE (bug in PPLC docs)
+                  - bugfix crash on STOP
+                  - bugfix output of labels after last statement
+
+1.00á4  30.05.94  * output of memory informations
+                  * save exit at unknown functions/statements
+                  - bugfix OUT OF MEMORY (at least 20k more memory)
+
+1.00á5  31.05.94  + some cosmetics on c code
+                  + now uses all available memory
+                  - bugfix memory output is no longer signed
+                  - bugfix misstyped function MASK_NUM
+                  - bugfix misstyped statement FPUTPAD
+
+1.00á6  09.06.94  * added destination to commandline
+                    '>' is no longer needed
+                  * extension and destination guessing at commandline
+                    now PPLD MYPPE will decompile MYPPE.PPE to MYPPE.PPS
+                    (let me know if you prefer the extension .PPD)
+                  * 'PPLC-like' screen output
+                  + heavy cosmetics on c code (expect some new bugs)
+                  + improved string-stack (argl, took me 3 hours)
+                    now an expression can take up to 4000 characters and
+                    expressions can be as complex as 4000 chars allow
+                  - removed (useless) memory informations
+
+1.00á7  11.06.94  + changed default destination extension to .PPD
+                  + limited .ppe format information in source
+                  + output fixed for final release version
+
+1.00    25.06.94  first public release
+                  * some primitif docs
+
+1.01á0  02.07.94  - bugfix misstyped function LANGEXT
+                  - bugfix misstyped function UN_OPER
+                  - bugfix misstyped statement FPUTPAD (again!!)
+                  - bugfix misstyped statement CDCHKON
+                  - bugfix abort on REDIM (inconsequent PPLC)
+                  - bugfix abort on FFLUSH (bug in PPLC docs)
+                  - bugfix abort on MOUSEREG (missing in docs)
+
+1.01    03.07.94  second public version
+                  - bugfix abort on SORT (inconsequent PPLC)
+                  - bugfix abort on HIMSGNUM (missing in docs)
+                  - bugfix abort on LOMSGNUM (missing in docs)
+                  - bugfix abort on KBDFILUSED (missing in docs)
+                  - bugfix abort on PPLBUFSIZE (missing in docs)
+                  - bugfix abort on KBDBUFSIZE (missing in docs)
+                  - bugfix abort on FLAGCNT (missing in docs)
+                  - bugfix abort on BRAG (missing in docs)
+                  - bugfix abort on FREALTUSER (missing in docs)
+                  - bugfix out of memory when no vars/statements used
+
+1.02    20.07.94  third public version
+                  * added trace mode to detect decompiling traps
+                  * added option /NOTRACE to disable trace mode
+                  + some cosmetics on output
+                  + expanded doc file
+                  - bugfix abort on VARSEG (caused by SORT bugfix)
+                  - bugfix abort on VAROFFS (caused by SORT bugfix)
+                  - bugfix abort on VARADDR (caused by SORT bugfix)
+                  - bugfix abort on SCRFILE (caused by SORT bugfix)
+
+3.00á0  26.07.94  * added PPLC 3.0 decrypting
+                  * added PPLC 3.0 new statements/functions
+                  - bugfix failing trace on label at program start
+
+3.00á1  01.11.94  - bugfix too long lines (1000+ chars) caused aborts
+
+3.00á2  29.01.95  - bugfix in decryption routines
+
+3.00á3  21.06.95  * added PPLC 3.10 decrypting
+                  * added PPLC 3.10 new statements/functions
+
+3.00    13.10.95  * added PPLC 3+ procedures/functions
+                  * added PPLC 3.20 new statements/functions
+                  * added !0+!0 bug detection
+                  - bugfix: decrypting aborted even everything was ok
+                  - bugfix: trace aborted on jump to program start/end
+                  - bugfix: 4 times more memory for BIIIIIIIG strings
+                  - bugfix: correct output of floatingpoint constants
+
+3.01à   25.12.95  * added option /SYMBOLIC to create symbolic files
+                    for PPLDebug
+
+3.10    16.05.96  * added simple-WHILE analyzing
+                  + updated PPLC bug-info
+                  - bugfix: mixed up labels in ppe with more than 32k
+                    bytes of code
+                  - bugfix: trace aborted on WHILE statement
+                  - bugfix: correct handling of INT, SBYTE, SWORD etc.
+                    constants (used by Acidic to fuckup PPLD, bad boys)
+                  - bugfix: now correctly counts lines with PPLC bugs
+
+3.11á   18.05.96  + new symbolic file format
+                  - bugfix: declaring too many local vars in procedures
+

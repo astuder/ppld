@@ -1,0 +1,549 @@
+/*
+
+0000
+0001    END
+0002    CLS
+0003    CLREOL
+0004    MORE
+0005    WAIT
+0006    COLOR           IEXP
+0007    GOTO            LABEL
+0008    LET             VAR = EXP
+0009    PRINT           SEXP[,SEXP...]
+000A    PRINTLN         [SEXP[,SEXP...]]
+000B    IF              BEXP
+000C    CONFFLAG        IEXP,IEXP
+000D    CONFUNFLAG      IEXP,IEXP
+000E    DISPFILE        SEXP,IEXP
+000F    INPUT           SEXP,VAR
+0010    FCREATE         IEXP,SEXP,IEXP,IEXP
+0011    FOPEN           IEXP,SEXP,IEXP,IEXP
+0012    FAPPEND         IEXP,SEXP,IEXP,IEXP
+0013    FCLOSE          IEXP
+0014    FGET            IEXP,VAR
+0015    FPUT            IEXP,SEXP[,SEXP...]
+0016    FPUTLN          IEXP[,SEXP[,SEXP...]]
+0017    RESETDISP
+0018    STARTDISP
+0019    FPUTPAD         IEXP,SEXP,IEXP
+001A    HANGUP
+001B    GETUSER
+001C    PUTUSER
+001D    DEFCOLOR
+001E    DELETE          SEXP
+001F    DELUSER
+0020    ADJTIME         IEXP
+0021    LOG             SEXP,BEXP
+0022    INPUTSTR        SEXP,VAR,IEXP,IEXP,SEXP,IEXP
+0023    INPUTYN         SEXP,VAR,IEXP
+0024    INPUTMONEY      SEXP,VAR,IEXP
+0025    INPUTINT        SEXP,VAR,IEXP
+0026    INPUTCC         SEXP,VAR,IEXP
+0027    INPUTDATE       SEXP,VAR,IEXP
+0028    INPUTTIME       SEXP,VAR,IEXP
+0029    GOSUB           LABEL
+002A    RETURN
+002B    PROMPTSTR       IEXP,VAR,IEXP,SEXP,IEXP
+002C    DTRON
+002D    DTROFF
+002E    CDCHKON
+002F    CDCHKOFF
+0030    DELAY           IEXP
+0031    SENDMODEM       SEXP
+0032    INC             VAR
+0033    DEC             VAR
+0034    NEWLINE
+0035    NEWLINES        IEXP
+0036    TOKENIZE        SEXP
+0037    GETTOKEN        VAR
+0038    SHELL           BEXP,VAR,SEXP,SEXP
+0039    DISPTEXT        IEXP,IEXP
+003A    STOP
+003B    INPUTTEXT       SEXP,VAR,IEXP,IEXP
+003C    BEEP
+003D    PUSH            EXP[,EXP...]
+003E    POP             VAR[,VAR...]
+003F    KBDSTUFF        SEXP
+0040    CALL            SEXP
+0041    JOIN            SEXP
+0042    QUEST           IEXP
+0043    BLT             IEXP
+0044    DIR             SEXP
+0045    KBDFILE         SEXP
+0046    BYE
+0047    GOODBYE
+0048    BROADCAST       IEXP,IEXP,SEXP
+0049    WAITFOR         SEXP,VAR,IEXP
+004A    KBDCHKON
+004B    KBDCHKOFF
+004C    OPTEXT          SEXP
+004D    DISPSTR         SEXP
+004E    RDUNET          IEXP
+004F    WRUNET          IEXP,SEXP,SEXP,SEXP,SEXP,SEXP
+0050    DOINTR          IEXP,IEXP,IEXP,IEXP,IEXP,IEXP,IEXP,IEXP,IEXP,IEXP
+0051    VARSEG          VAR,VAR
+0052    VAROFF          VAR,VAR
+0053    POKEB           IEXP,IEXP
+0054    POKEW           IEXP,IEXP
+0055    VARADDR         VAR,VAR
+0056    ANSIPOS         IEXP,IEXP
+0057    BACKUP          IEXP
+0058    FORWARD         IEXP
+0059    FRESHLINE
+005A    WRUSYS
+005B    RDUSYS
+005C    NEWPWD          SEXP,VAR
+005D    OPENCAP         SEXP,VAR
+005E    CLOSECAP
+005F    MESSAGE         IEXP,SEXP,SEXP,SEXP,SEXP,DEXP,BEXP,BEXP,SEXP
+0060    SAVESCRN
+0061    RESTSCRN
+0062    SOUND           IEXP
+0063    CHAT
+0064    SPRINT          SEXP[,SEXP...]
+0065    SPRINTLN        [SEXP[,SEXP...]]
+0066    MPRINT          SEXP[,SEXP...]
+0067    MPRINTLN        [SEXP[,SEXP...]]
+0068    RENAME          SEXP,SEXP
+0069    FREWIND         IEXP
+006A    POKEDW          IEXP,IEXP
+006B    DBGLEVEL        IEXP
+006C    SHOWON
+006D    SHOWOFF
+006E    PAGEON
+006F    PAGEOFF
+0070    FSEEK           IEXP,IEXP,IEXP
+0071    FFLUSH          IEXP
+0072    FREAD           IEXP,VAR,IEXP
+0073    FWRITE          IEXP,EXP,IEXP
+0074    FDEFIN          IEXP
+0075    FDEFOUT         IEXP
+0076    FDGET           VAR
+0077    FDPUT           SEXP[,SEXP...]
+0078    FDPUTLN         [SEXP[,SEXP...]
+0079    FDPUTPAD        SEXP,IEXP
+007A    FDREAD          VAR,IEXP
+007B    FDWRITE         EXP,IEXP
+007C    ADJBYTES        IEXP
+007D    KBDSTRING       SEXP
+007E    ALIAS           BEXP
+007F    REDIM           VAR,IEXP[,IEXP[,IEXP]]
+0080    APPEND          SEXP,SEXP
+0081    COPY            SEXP,SEXP
+0082    KBDFLUSH
+0083    MDMFLUSH
+0084    KEYFLUSH
+0085    LASTIN          IEXP
+0086    FLAG            SEXP
+0087    DOWNLOAD        SEXP
+0088    WRUSYSDOOR      SEXP
+0089    GETALTUSER      IEXP
+008A    ADJDBYTES       IEXP
+008B    ADJTBYTES       IEXP
+008C    ADJTFILES       IEXP
+008D    LANG            IEXP
+008E    SORT            VAR,VAR                 ;SPEZ!!
+008F    MOUSEREG
+0090    SCRFILE         VAR,VAR
+0091    SEARCHINIT      SEXP,BEXP
+0092    SEARCHFIND      SEXP,VAR
+0093    SEARCHSTOP
+0094    PRFOUND         EXP[,EXP...]
+0095    PRFOUNDLN       [EXP[,EXP...]
+0096    TPAGET          SEXP,VAR
+0097    TPAPUT          SEXP,EXP
+0098    TPACGET         SEXP,VAR,IEXP
+0099    TPACPUT         SEXP,EXP,IEXP
+009A    TPAREAD         SEXP,VAR
+009B    TPAWRITE        SEXP,EXP
+009C    TPACREAD        SEXP,VAR,IEXP
+009D    TPACWRITE       SEXP,EXP,IEXP
+009E    BITSET          VAR,IEXP
+009F    BITCLEAR        VAR,IEXP
+00A0    BRAG
+00A1    FREALTUSER
+00A2    SETLMR          IEXP,IEXP
+00A3    SETENV          SEXP
+00A4    FCLOSEALL
+00A5   *DECLARE
+00A6   *FUNCTION
+00A7   *???
+00A8    PROCEDURE
+00A9    ENDPROC
+00AA   *BEGIN
+00AB    ENDFUNC
+00AC   *STATIC
+00AD    STACKABORT      IEXP
+00AE    DCREATE         IEXP,SEXP,IEXP,VAR
+00AF    DOPEN           IEXP,SEXP,IEXP
+00B0    DCLOSE          IEXP
+00B1    DSETALIAS       IEXP,SEXP
+00B2    DPACK           IEXP
+00B3    DCLOSEALL
+00B4    DLOCK           IEXP
+00B5    DLOCKR          IEXP,IEXP
+00B6    DLOCKG          IEXP,VAR,IEXP
+00B7    DUNLOCK         IEXP
+00B8    DNCREATE        IEXP,SEXP,SEXP
+00B9    DNOPEN          IEXP,SEXP
+00BA    DNCLOSE         IEXP,SEXP
+00BB    DNCLOSEALL      IEXP
+00BC    DNEW            IEXP
+00BD    DADD            IEXP
+00BE    DAPPEND         IEXP
+00BF    DTOP            IEXP
+00C0    DGO             IEXP,IEXP
+00C1    DBOTTOM         IEXP
+00C2    DSKIP           IEXP,IEXP
+00C3    DBLANK          IEXP
+00C4    DDELETE         IEXP
+00C5    DRECALL         IEXP
+00C6    DTAG            IEXP,SEXP
+00C7    DSEEK           IEXP,SEXP
+00C8    DFBLANK         IEXP,SEXP
+00C9    DGET            IEXP,SEXP,VAR
+00CA    DPUT            IEXP,SEXP,EXP
+00CB    DFCOPY          IEXP,SEXP,IEXP,SEXP
+00CC    EVAL            IEXP
+00CD    ACCOUNT         IEXP,IEXP
+00CE    RECORDUSAGE     IEXP,SEXP,SEXP,IEXP,IEXP
+00CF    MSGTOFILE       IEXP,IEXP,SEXP
+00D0    QWKLIMITS       EXP,EXP
+00D1    COMMAND         EXP,EXP
+00D2    USELMRS         EXP
+00D3    CONFINFO        EXP,EXP,EXP
+00D4    ADJTUBYTES      EXP
+00D5    GRAFMODE        EXP
+00D6    ADDUSER         EXP,EXP
+00D7    KILLMSG         EXP,EXP
+00D8    CHDIR           SEXP
+00D9    MKDIR           SEXP
+00DA    REDIR           SEXP
+00DB    FDOWRAKA        EXP,EXP
+00DC    FDOADDAKA       EXP,EXP,EXP
+00DD    FDOWRORG        EXP,EXP
+00DE    FDOADDORG       EXP,EXP,EXP
+00DF    FDOQMOD         EXP,EXP,EXP,EXP
+00E0    FDOQADD         EXP,EXP,EXP
+00E1    FDOQDEL         EXP
+00E2    SOUNDDELAY      EXP,EXP
+00E2
+00E3
+00E4
+00E5
+00E6
+00E7
+00E8
+00E9
+00EA
+00EB
+00EC
+00ED
+00EE
+00EF
+00F0
+00F1
+00F2
+00F3
+00F4
+00F5
+00F6
+00F7
+00F8
+00F9
+00FA
+00FB
+00FC
+00FD
+00FE
+00FF
+
+
+FEE0
+FEE1
+FEE2    OS              ()
+FEE3    FTELL           (EXP)
+FEE4    I2BD            (EXP)
+FEE5    I2BS            (EXP)
+FEE6    BD2I            (EXP)
+FEE7    BS2I            (EXP)
+FEE8    SETDRIVE        (EXP)
+FEE9    GETDRIVE        ()
+FEEA    FDOQRD          (EXP,EXP,EXP,EXP,EXP,EXP)
+FEEB    FDORDAREA       (EXP)
+FEEC    FDORDORG        (EXP)
+FEED    FDORDAKA        (EXP)
+FEEE    INSTRR          (EXP,EXP)
+FEEF    CWD             ()
+FEF0    TINKEY          (EXP)
+FEF1    CONFINFO        (EXP,EXP)
+FEF2    USELMRS         ()
+FEF3    FINDNEXT        ()
+FEF4    FINDFIRST       (EXP)
+FEF5    QWKLIMITS       (EXP)
+FEF6    RIPVER          ()
+FEF7    CHECKRIP        ()
+FEF8    SCANMSGHDR      (IEXP,IEXP,IEXP,EXP)    (INTEGER)
+FEF9    ACCOUNT         (IEXP)                  (INTEGER)
+FEFA    DERRMSG         (IEXP)                  (STRING)
+FEFB    PCBACCSTAT      (IEXP)                  (INTEGER)
+FEFC    PCBACCOUNT      (IEXP)                  (INTEGER)
+FEFD    DCHKSTAT        (IEXP)
+FEFE    DSELECT         (SEXP)                  (INTEGER)
+FEFF    DFCOPY          (IEXP,SEXP,IEXP,SEXP)   (BOOLEAN)
+FF00    DPUT            (IEXP,SEXP,EXP)         (BOOLEAN)
+FF01    DGET            (IEXP,SEXP)             (STRING)
+FF02    DFBLANK         (IEXP,SEXP)             (BOOLEAN)
+FF03    DSEEK           (IEXP,SEXP)             (INTEGER)
+FF04    DTAG            (IEXP,SEXP)             (BOOLEAN)
+FF05    DRECALL         (IEXP)                  (BOOLEAN)
+FF06    DDELETE         (IEXP)                  (BOOLEAN)
+FF07    DBLANK          (IEXP)                  (BOOLEAN)
+FF08    DSKIP           (IEXP,IEXP)             (BOOLEAN)
+FF09    DBOTTOM         (IEXP)                  (BOOLEAN)
+FF0A    DGO             (IEXP,IEXP)             (BOOLEAN)
+FF0B    DTOP            (IEXP)                  (BOOLEAN)
+FF0C    DAPPEND         (IEXP)                  (BOOLEAN)
+FF0D    DADD            (IEXP)                  (BOOLEAN)
+FF0E    DNEW            (IEXP)                  (BOOLEAN)
+FF0F    DNCLOSEALL      (IEXP)                  (BOOLEAN)
+FF10    DNCLOSE         (IEXP,SEXP)             (BOOLEAN)
+FF11    DNOPEN          (IEXP,SEXP)             (BOOLEAN)
+FF12    DUNLOCK         (IEXP)                  (BOOLEAN)
+FF13    DLOCKR          (IEXP,IEXP)             (BOOLEAN)
+FF14    DLOCK           (IEXP)                  (BOOLEAN)
+FF15    DLOCKF          (IEXP)                  (BOOLEAN)
+FF16    DPACK           (IEXP)                  (BOOLEAN)
+FF17    DSETALIAS       (IEXP,SEXP)             (BOOLEAN)
+FF18    DCLOSE          (IEXP)                  (BOOLEAN)
+FF19    DOPEN           (IEXP,SEXP,IEXP)        (BOOLEAN)
+FF1A    DCLOSEALL       ()                      (BOOLEAN)
+FF1B    TODDATE         (SEXP)                  (DDATE)
+FF1C    DNEXT           ()                      (INTEGER)
+FF1D    FNEXT           ()                      (INTEGER)
+FF1E    DTYPE           (IEXP,SEXP)             (STRING)
+FF1F    DRECNO          (IEXP)                  (INTEGER)
+FF20    DRECCOUNT       (IEXP)                  (INTEGER)
+FF21    DNAME           (IEXP,IEXP)             (STRING)
+FF22    DLENGTH         (IEXP,SEXP)             (INTEGER)
+FF23    DFIELDS         (IEXP)                  (INTEGER)
+FF24    DERR            (IEXP)                  (BOOLEAN)
+FF25    DEOF            (IEXP)                  (BOOLEAN)
+FF26    DDELETED        (IEXP)                  (BOOLEAN)
+FF27    DDECIMALS       (IEXP,SEXP)             (INTEGER)
+FF28    DCHANGED        (IEXP)                  (BOOLEAN)
+FF29    DBOF            (IEXP)                  (BOOLEAN)
+FF2A    DGETALIAS       (IEXP)                  (STRING)
+FF2B    STACKERR        ()                      (BOOLEAN)
+FF2C    STACKLEFT       ()                      (INTEGER)
+FF2D    ACTMSGNUM       ()                      (INTEGER)
+FF2E    PCBMAC          (SEXP)                  (STRING)
+FF2F    CRC32           (IEXP,SEXP)             (INTEGER)
+FF30    INBYTES         ()                      (INTEGER)
+FF31    HICONFNUM       ()                      (INTEGER)
+FF32    OUTBYTES        ()                      (INTEGER)
+FF33    DRIVESPACE      (SEXP)                  (INTEGER)
+FF34    HIMSGNUM        ()                      (INTEGER)
+FF35    LOMSGNUM        ()                      (INTEGER)
+FF36    KBDFILUSED      ()
+FF37    PPLBUFSIZE      ()
+FF38    KBDBUFSIZE      ()
+FF39    FLAGCNT         ()
+FF3A    FMTREAL         (IEXP,IEXP,IEXP)        (STRING)
+FF3B    ISBITSET        (IEXP,IEXP)             (BOOLEAN)
+FF3C    EVTTIMEADJ      ()                      (BOOLEAN)
+FF3D    MEGANUM         (IEXP)
+FF3E    LASTANS         ()                      (STRING)
+FF3F    DEFANS          ()                      (STRING)
+FF40    CHATSTAT        ()                      (BOOLEAN)
+FF41    U_LMR           (IEXP)                  (INTEGER)
+FF42    CURUSER         ()                      (INTEGER)
+FF43    USERALIAS       ()                      (BOOLEAN)
+FF44    CONFALIAS       ()                      (BOOLEAN)
+FF45    ERRCORRECT      ()                      (BOOLEAN)
+FF46    ISNONSTOP       ()                      (BOOLEAN)
+FF47    LPRINTED        ()                      (INTEGER)
+FF48    CONFMW          (IEXP)                  (BOOLEAN)
+FF49    CONFSYS         (IEXP)                  (BOOLEAN)
+FF4A    CONFSEL         (IEXP)                  (BOOLEAN)
+FF4B    CONFEXP         (IEXP)                  (BOOLEAN)
+FF4C    CONFREG         (IEXP)                  (BOOLEAN)
+FF4D    ALIAS           ()                      (BOOLEAN)
+FF4E    MIXED           (SEXP)                  (STRING)
+FF4F    TOWORD          (EXP)                   (WORD)
+FF50    TOUNSIGNED      (EXP)                   (UNSIGNED)
+FF51    TOTIME          (EXP)                   (TIME)
+FF52    TOSWORD         (EXP)                   (SWORD)
+FF53    TOSBYTE         (EXP)                   (SBYTE)
+FF54    TOREAL          (EXP)                   (REAL)
+FF55    TOMONEY         (EXP)                   (MONEY)
+FF56    TOINTEGER       (EXP)                   (INTEGER)
+FF57    TOEDATE         (EXP)                   (EDATE)
+FF58    TODREAL         (EXP)                   (DREAL)
+FF59    TODATE          (EXP)                   (DATE)
+FF5A    TOBYTE          (EXP)                   (BYTE)
+FF5B    TOBOOLEAN       (EXP)                   (BOOLEAN)
+FF5C    TOBIGSTR        (EXP)                   (BIGSTR)
+FF5D    STRIPSTR        (SEXP,SEXP)             (STRING)
+FF5E    REPLACESTR      (SEXP,SEXP,SEXP)        (STRING)
+FF5F    PAGESTAT        ()                      (BOOLEAN)
+FF60    SHOWSTAT        ()                      (BOOLEAN)
+FF61    SCRTEXT         (IEXP,IEXP,IEXP,BEXP)   (STRING)
+FF62    DBGLEVEL        ()                      (INTEGER)
+FF63    PEEKDW          (IEXP)                  (INTEGER)
+FF64    U_INCONF        (IEXP,IEXP)             (BOOLEAN)
+FF65    U_RECNUM        (SEXP)                  (INTEGER)
+FF66    TOKCOUNT        ()                      (INTEGER)
+FF67    MGETBYTE        ()                      (INTEGER)
+FF68    CALLNUM         ()                      (INTEGER)
+FF69    LOGGEDON        ()                      (BOOLEAN)
+FF6A    MODEM           ()                      (STRING)
+FF6B    TEMPPATH        ()                      (STRING)
+FF6C    HELPPATH        ()                      (STRING)
+FF6D    SLPATH          ()                      (STRING)
+FF6E    MAXNODE         ()                      (INTEGER)
+FF6F    MINKEY          ()                      (STRING)
+FF70    KINKEY          ()                      (STRING)
+FF71    CURCOLOR        ()                      (INTEGER)
+FF72    MKDATE          (IEXP,IEXP,IEXP)        (DATE)
+FF73    PPENAME         ()                      (STRING)
+FF74    FILEINF         (SEXP,IEXP)             (BOOLEAN, DATE, INTEGER and TIME)
+FF75    PSA             (IEXP)                  (BOOLEAN)
+FF76    GRAFMODE        ()                      (STRING)
+FF77    ABS             (IEXP)                  (INTEGER)
+FF78    DEFCOLOR        ()                      (INTEGER)
+FF79    U_STAT          (IEXP)                  (DATE or INTEGER)
+FF7A    U_PWDTC         ()                      (INTEGER)
+FF7B    U_PWDLC         ()                      (DATE)
+FF7C    U_PWDHIST       (IEXP)                  (STRING)
+FF7D    NOT             (IEXP)                  (INTEGER)
+FF7E    XOR             (IEXP,IEXP)             (INTEGER)
+FF7F    OR              (IEXP,IEXP)             (INTEGER)
+FF80    AND             (IEXP1,IEXP2)           (INTEGER)
+FF81    GETY            ()                      (INTEGER)
+FF82    GETX            ()                      (INTEGER)
+FF83    CCTYPE          (SEXP)                  (STRING)
+FF84    FMTCC           (SEXP)                  (STRING)
+FF85    VALCC           (SEXP)                  (BOOLEAN)
+FF86    ANSION          ()                      (BOOLEAN)
+FF87    LANGEXT         ()                      (STRING)
+FF88    CDON            ()                      (BOOLEAN)
+FF89    TOKENSTR        ()                      (STRING)
+FF8A    CARRIER         ()                      (INTEGER)
+FF8B    S2I             (SEXP,IEXP)             (INTEGER)
+FF8C    I2S             (IEXP,IEXP)             (STRING)
+FF8D    EXIST           (SEXP)                  (BOOLEAN)
+FF8E    MKADDR          (IEXP,IEXP)             (INTEGER)
+FF8F    PEEKW           (IEXP)                  (INTEGER)
+FF90    PEEKB           (IEXP)                  (INTEGER)
+FF91    B2W             (IEXP,IEXP)             (INTEGER)
+FF92    REGES           ()                      (INTEGER)
+FF93    REGDS           ()                      (INTEGER)
+FF94    REGCF           ()                      (BOOLEAN)
+FF95    REGF            ()                      (INTEGER)
+FF96    REGDI           ()                      (INTEGER)
+FF97    REGSI           ()                      (INTEGER)
+FF98    REGDX           ()                      (INTEGER)
+FF99    REGCX           ()                      (INTEGER)
+FF9A    REGBX           ()                      (INTEGER)
+FF9B    REGAX           ()                      (INTEGER)
+FF9C    REGDH           ()                      (INTEGER)
+FF9D    REGDL           ()                      (INTEGER)
+FF9E    REGCH           ()                      (INTEGER)
+FF9F    REGCL           ()                      (INTEGER)
+FFA0    REGBH           ()                      (INTEGER)
+FFA1    REGBL           ()                      (INTEGER)
+FFA2    REGAH           ()                      (INTEGER)
+FFA3    REGAL           ()                      (INTEGER)
+FFA4    CALLID          ()                      (STRING)
+FFA5    GETENV          (SEXP)                  (STRING)
+FFA6    MINON           ()                      (INTEGER)
+FFA7    MINLEFT         ()                      (INTEGER)
+FFA8    GETTOKEN        ()                      (STRING)
+FFA9    CURSEC          ()                      (INTEGER)
+FFAA    UN_OPER         ()                      (STRING)
+FFAB    UN_CITY         ()                      (STRING)
+FFAC    UN_NAME         ()                      (STRING)
+FFAD    UN_STAT         ()                      (STRING)
+FFAE    ONLOCAL         ()                      (BOOLEAN)
+FFAF    SYSOPSEC        ()                      (INTEGER)
+FFB0    READLINE        (SEXP,IEXP)             (STRING)
+FFB1    PCBNODE         ()                      (INTEGER)
+FFB2    U_MSGWR         ()                      (INTEGER)
+FFB3    U_MSGRD         ()                      (INTEGER)
+FFB4    VALTIME         (SEXP)                  (BOOLEAN)
+FFB5    VALDATE         (SEXP)                  (BOOLEAN)
+FFB6    PPEPATH         ()                      (STRING)
+FFB7    PCBDAT          ()                      (STRING)
+FFB8    CURCONF         ()                      (INTEGER)
+FFB9    MASK_ASCII      ()                      (STRING)
+FFBA    MASK_PATH       ()                      (STRING)
+FFBB    MASK_FILE       ()                      (STRING)
+FFBC    MASK_ALNUM      ()                      (STRING)
+FFBD    MASK_NUM        ()                      (STRING)
+FFBE    MASK_ALPHA      ()                      (STRING)
+FFBF    MASK_PWD        ()                      (STRING)
+FFC0    STRING          (EXP)                   (STRING)
+FFC1    INKEY           ()                      (STRING)
+FFC2    STRIP           (SEXP,SEXP)             (STRING)
+FFC3    REPLACE         (SEXP,SEXP,SEXP)        (STRING)
+FFC4    STRIPATX        (SEXP)                  (STRING)
+FFC5    YESCHAR         ()                      (STRING)
+FFC6    NOCHAR          ()                      (STRING)
+FFC7    VER             ()                      (INTEGER)
+FFC8    TIMEAP          (TEXP)                  (STRING)
+FFC9    SEC             (TEXP)                  (INTEGER)
+FFCA    MIN             (TEXP)                  (INTEGER)
+FFCB    HOUR            (TEXP)                  (INTEGER)
+FFCC    DOW             (DEXP)                  (INTEGER)
+FFCD    DAY             (DEXP)                  (INTEGER)
+FFCE    MONTH           (DEXP)                  (INTEGER)
+FFCF    YEAR            (DEXP)                  (INTEGER)
+FFD0    U_BUL           ()                      (INTEGER)
+FFD1    U_BDL           ()                      (INTEGER)
+FFD2    U_TIMEON        ()                      (INTEGER)
+FFD3    U_BDLDAY        ()                      (INTEGER)
+FFD4    U_FDL           ()                      (INTEGER)
+FFD5    U_FUL           ()                      (INTEGER)
+FFD6    U_LOGONS        ()                      (INTEGER)
+FFD7    U_LDIR          ()                      (DATE)
+FFD8    U_LTIME         ()                      (TIME)
+FFD9    U_LDATE         ()                      (DATE)
+FFDA    U_NAME          ()                      (STRING)
+FFDB    TIME            ()                      (TIME)
+FFDC    DATE            ()                      (DATE)
+FFDD    RANDOM          (IEXP)                  (INTEGER)
+FFDE    TRIM            (SEXP,SEXP)             (STRING)
+FFDF    RTRIM           (SEXP,SEXP)             (STRING)
+FFE0    LTRIM           (SEXP,SEXP)             (STRING)
+FFE1    ABORT           ()                      (BOOLEAN)
+FFE2    INSTR           (SEXP,SEXP)             (INTEGER)
+FFE3    ASC             (SEXP)                  (INTEGER)
+FFE4    CHR             (IEXP)                  (STRING)
+FFE5    FERR            (IEXP)                  (BOOLEAN)
+FFE6    SPACE           (IEXP)                  (STRING)
+FFE7    RIGHT           (SEXP,IEXP)             (STRING)
+FFE8    LEFT            (SEXP,IEXP)             (STRING)
+FFE9    MID             (SEXP,IEXP,IEXP)        (STRING)
+FFEA    UPPER           (SEXP)                  (STRING)
+FFEB    LOWER           (SEXP)                  (STRING)
+FFEC    LEN             (SEXP)                  (INTEGER)
+FFED
+FFEE    LVALUE | RVALUE
+FFEF    LVALUE & RVALUE
+FFF0    ! RVALUE
+FFF1    LVALUE >= RVALUE
+FFF2    LVALUE > RVALUE
+FFF3    LVALUE <= RVALUE
+FFF4    LVALUE < RVALUE
+FFF5    LVALUE <> RVALUE
+FFF6    LVALUE = RVALUE
+FFF7    LVALUE - RVALUE
+FFF8    LVALUE + RVALUE
+FFF9    LVALUE % RVALUE
+FFFA    LVALUE / RVALUE
+FFFB    LVALUE * RVALUE
+FFFC    LVALUE ^ RVALUE
+FFFD    - RVALUE
+FFFE    + RVALUE
+FFFF
