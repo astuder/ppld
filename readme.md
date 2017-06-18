@@ -25,4 +25,4 @@ licensing restrictions, distributing copies with added backdoors),
 
 I recently did major rework on the 8051 disassembler for the [radare2](https://radare.org) project, which reminded me
 of this reverse engineering project of mine from over 20 years ago. Excuse some of the language in the readme files,
-I was young, brash and in questionable control of the English language. ¯\\_(ツ)_/¯
+I was young, brash and in questionable control of the English language. ¯\\\_(ツ)\_/¯
