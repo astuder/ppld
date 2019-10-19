@@ -1,0 +1,179 @@
+string left, myppe
+string symbol
+string cmd1,cmd2
+integer dump
+word   symseg, symoffs
+
+word i
+string PPEPaths(0)
+word PPECount
+
+declare procedure detect()
+declare procedure Scan4PPEs(string LWF)
+
+        detect()
+
+        left = tokenstr()
+        tokenize left
+        gettoken myppe
+        gettoken symbol
+
+        savescrn
+        cls
+        ansipos 1,1
+        println "UGLY PPE DEBUG LAUNCHER v1.0            (C)95/96 Chicken + eULE! / Tools 4 Fools"
+        ansipos 1,3
+        IF (myppe = "") THEN
+                println "status: missing ppe                "
+                goto LABEL01
+        endif
+
+:LABEL00
+        ansipos 1,3
+        myppe = upper(myppe)
+        if (! exist(myppe)) then
+                fopen 1,slpath()+"\cmd.lst",O_RD,S_DN
+                if (ferr(1)) goto CMDReadError
+:LOOPER
+                fread 1,cmd1,16
+                if (ferr(1)) goto CMDReadError
+                fread 1,cmd2,48
+                if (ferr(1)) goto CMDReadError
+                if (cmd1 = "") goto CMDReadError
+                if (cmd1 != myppe) goto LOOPER
+                myppe = cmd2
+:CMDReadError
+                fclose 1
+        endif
+
+        print "status: PPE"
+        IF (! exist(myppe)) then
+                println " not found!        "
+        ELSE
+                println " found!            "
+        endif
+
+:LABEL01
+        inputtext "PPE", myppe, 15, 70
+        if (Upper(left(myppe, 5))=" READ") then
+           myppe = mid(myppe, 7, 1)
+           scan4PPEs(myppe)
+           goto Label01
+        endif
+        if (Upper(left(myppe, 5))=" LIST") then
+           i = 0
+           color 15
+           cls
+           while (i < PPECount) do
+             println PPEPaths[i]
+             inc i
+           endwhile
+           myppe = ""
+           goto label01
+        endif
+        if (Upper(left(myppe, 4))=" SEL") then
+           myppe = right(myppe, len(myppe)-5)
+           println
+           i = s2i(myppe, 10)
+           if (i <= PPECount) myppe = PPEPaths[i]
+           goto label00
+        endif
+        myppe = upper(myppe)
+        if (myppe = "") END
+        if (! exist(myppe)) goto LABEL00
+
+:LABEL03
+        if (symbol = "") symbol = myppe
+        if (right(symbol,4) = ".PPE")
+                symbol = left(symbol,len(symbol)-4)+".SYM"
+
+:LABEL02
+        ansipos 1,6
+        symbol = upper(symbol)
+        print "status: symbol-file"
+        IF (! exist(symbol)) then
+                println " not found!  (enter * to create symbol-file) "
+        ELSE
+                println " found!  (enter * to create new symbol-file) "
+        endif
+           
+        inputtext "SYM",symbol,15,70
+        if (symbol = "") END
+        if (symbol = "*") then
+                savescrn
+                shell false,dump,"ppld","/symbolic " + myppe
+                restscrn
+                symbol = ""
+                goto LABEL03
+        endif
+        if (! exist(symbol)) goto LABEL02
+           
+        restscrn
+        :restart
+                
+        VARSEG symbol,symseg
+        VAROFF symbol,symoffs
+           
+        dointr 0f1h, 0abbah, 0, 1, symoffs, 0, 0, 200h, symseg, 0
+'              INT   AX     BX CX DX       SI DI FLAG  DS      ES
+           
+' bx -> version dependant offset, 0 = autodetect
+' cx -> ignore next x steps
+' ds:dx -> offset of *.sym filename
+           
+        call myppe
+           
+'terminate debugging, free mem
+
+        dointr 0f1h, 0baabh, 0, 0, 0, 0, 0, 0, 0, 0
+        if (regax() = 01234h) goto restart
+        end
+
+procedure detect()
+        IF ((peek(964)=0)&(peek(966)=0)) THEN
+                println "PPLDebug not installed!"
+                wait
+                END
+        ENDIF
+endproc
+
+procedure Scan4PPEs(string LWF)
+
+string tempdir
+word dummy
+word tmpFile
+string output
+
+tempdir = getenv("TEMP")
+if (tempdir = "") tempdir = "C:\"
+if ((len(tempdir) > 3) & (mid(tempdir, len(tempdir), 1) <> "\")) tempdir = tempdir + "\"
+tempdir = tempdir + "DBGSCN.TMP"
+
+println "Hold yer horsies - Scanning on "+LWF+".."
+shell true, dummy, "ATTRIB "+LWF+":\*.PPE /S > "+tempdir, ""
+
+if (dummy = 255) then
+   println "Lacking the memory to shell .. free up or write those paths down."
+   goto Break_proc
+endif
+
+if (!exist(tempdir)) println "could not locate attrib tempfile"
+if (!exist(tempdir)) goto break_proc
+fopen tmpFile, tempdir, O_RD, S_DB
+
+PPECount = 0
+:readfile
+fget tmpFile, output
+redim PPEPaths, PPEcount
+PPEPaths(PPECount) = mid(output, 14, len(output)-13)
+println ppepaths[ppecount]+" "+output
+inc ppecount
+if (!Ferr(tmpfile)) goto readfile
+dec ppecount             ' error occurs _after_ last line
+
+fclose tmpfile
+delete tempdir
+
+:break_proc
+endproc
+

@@ -1,0 +1,17 @@
+correct the table from ppld with the following things.. (observed directly 
+from a running ppe..)
+[ does not reserve to be complete. maybe someone (;) should look into this. ]
+
+00a8		PROC START		start a procedure. Numba follows or so.
+00a9		ENDPROC			blah
+00ab		ENDFUNC			this one is real nice..
+
+look at this one (starting of functions)
+
+Pseudo code+Numbas
+
+0008 001b 0000 001a - function number ?
+LET  VarN  \    
+	    attention function ?  
+
+as you see.. this one is _real_ unsure. take softice. E! 19,40 11.07.1996 

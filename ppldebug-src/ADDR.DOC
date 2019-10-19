@@ -1,0 +1,31 @@
+; Documentation of PCB  - A contradiction in terms.
+Determining the address of a Variable :
+
+Almost anytime in ppe seg:
+
+     mov  ax, Variable_Num
+     shl  ax, 2
+
+     les  bx, [bp+6]
+
+     mov  dx, es:[bx+6]
+     add  ax, es:[bx+4]
+
+     mov  bx, ax
+     mov  es, dx
+
+     les  bx, es:[bx-4]    !
+
+Determining the Source Address:
+
+As Above
+
+     les  bx, [bp+6]
+     les  bx, es:[bx+15a4]
+     les  bx, es:[bx]
+                                !
+
+
+got it ?
+
+                                        -eULE!-

@@ -1,0 +1,125 @@
+
+                           pplDebug V1.00·
+
+              (C)1995-96 Chicken and eULE! [Tools4Fools]
+                   additional debugging by Gargamel
+
+                        This is Not-4-U-Ware
+                        Delete to register !
+
+                  [documentation under construction]
+
+     -----------------------------------------------------------
+
+
+WHAT IS PPLDEBUG GOOD FOR ?
+
+uuuh, dunno .. my ego ?
+
+
+     -----------------------------------------------------------
+
+
+BUT HOW TO USE IT ?
+
+pplDebug is a program that runs in the background and can be launched
+by  a PPE.  For debugging a PPE it needs  the decompiled  source in a
+special  form,  called symbolic-file.  This file can be  created with
+PPLD  using the /SYMBOLIC switch.  Using the supplied DEBUG.PPE,  you
+don't really have to care about this. Here a short instruction:
+
+1) add the DEBUG.PPE to your CMD.LST (we suggest the command DEBUG)
+
+2) put PPLD.EXE somewhere in the path
+
+3) start PPLDEBUG.EXE
+   it'll stay resident and needs about 4k of memory
+
+4) start PCBoard and type DEBUG
+
+5) you'll now be prompted for path and name of your favourite PPE
+   you may also take a PPE from CMD.LST by typing its magic
+   type ENTER at the empty line to quit
+
+6) next question is path and name of the symbolic file
+   when entering * and ENTER, it will be created by PPLD
+   type ENTER at the empty line to quit
+
+if everything goes fine, your screen switches to 50 lines and you see
+some source in the lower half.  Use cursor and page up/down to browse
+through the source. With F7 one PPE statement is executed.  Using F12
+you start and stop continuos execution.  For leaving the debugger you
+have to press F12 and the terminate the PPE as usual.
+
+some short remarks:
+
+- you can't debug huge PPEs as PCBoard runs out of memory.
+- take care your users can't access DEBUG.PPE, your bbs may hang.
+- launching PPEs with parameters may be tricky.
+  decompile DEBUG.PPE and see how to launch the debugger from  within
+  your favourite PPE.
+
+
+     -----------------------------------------------------------
+
+
+REVISION HISTORY:
+
+16.05.96        release of version 1.00· (a step beyond)
+
+
+     -----------------------------------------------------------
+
+
+CONTACT THE AUTHORS !
+
+If you got an idea for some features, dig it :).
+But for chitchat, donations, hate mails or bugs...
+
+call The Lycaeum:     +41 41-484-2989 [ZYX V34]
+                      +41 41-484-3289 [USR V34]
+
+email via InterNet:   chicken@ezinfo.vmsmail.ethz.ch
+
+or snail mail:        Adrian Studer
+                      Hauptstrasse 54
+                      6170 SchÅpfheim
+                      Switzerland
+
+
+     -----------------------------------------------------------
+
+
+COPYRIGHTS:
+
+pplDebug is copyright of its authors. The authors allow to: use soft-
+ware,  make copies of it,  give copies  to anybody and  distribute it
+through electronic media.
+
+It  is not  allowed to ask  for money or  donations for  any  copy or
+copies of the  program,  neither distribute the software and/or docu-
+mentation with commercial products and/or donuts.
+
+
+     -----------------------------------------------------------
+
+
+DISK-LAMER:
+
+The authors deny any responsibilities for  illegal acts involving the
+(mis)use  of pplDebug. It is illegal (and lame) to  spread copies  of
+tampered and/or modified PPEs.
+
+Pay fair prices to fair shareware authors (like us ?)
+
+This EXCLUDES software which:
+        a) contains backdoors
+     or b) consists of less than 50 lines code
+     or c) costs  more than $20 (don't tell me you invested months in
+           your one-in-thousands-so-fucking-boring-online-game)
+
+This INCLUDES the great work of the rare REAL coders doing .PPEs !
+
+
+     -----------------------------------------------------------
+             ! T4F, INCREASES THE QUALITY OF YOUR LIFE !

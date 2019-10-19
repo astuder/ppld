@@ -1,0 +1,47 @@
+History file, PPLdebug
+
+[Here is a big part missing due to pink skunks in the morning. Ask Chicken   ]
+[Internal Use only]
+
+v1.00b		First release, trace (F7) and animate. Neat to explain what
+		a debugger is, no working tool. Certainly kept people waiting
+		for more.
+
+v1.01		+ Second time start removes it from memory. (completely)
+		+ screen resetted on exit of debugging                
+		+ No Recursion anymore (didn't work anyway ;)         
+		+ int 9 replacement. switches trace on f12 off.       
+		+ Home and End handlers. Guess what.                  
+		* all in all a nicer keyb handling. For a longer life.
+		+ F8.. Step over. 02,17 09.07.1996 
+		* bugfix step over. Even if there is a goto in a line with
+		  other procedures being run, it manages to step over. 
+		  (Waits on change in line number of SYM..)
+	        + Left-right scrolling. Simple: Procedure outputstring has
+	          one more parameter which indicates the horizontal 
+	          displacement. Check this one out. Also check out left&right
+	          with CTRL     	
+                + Line number indicator. Totally useless but neat. fukkin hex
+                + F4 here. Sets the same kind of breakpoint as f8 does, no
+                  real bpoints yet.
+                * the combined f12 is changed into f9 (run) and ctrl+f12
+                  (break). The handling of breaks is neater.
+		* f8/f4 routines faster. (search_valid.)
+		* bugfix with procedure detect in f8. It doesn't anymore ;)
+                  (beautiful secretaries can't type. Or whatever. ;)
+
+v1.10b		* New Module, Break.asm. Handles Breakpoints.
+		+ Finally the Breakpoints. F2, static list, simple like hell.
+ 	 	+ ALT X handling. 
+		* CTRL f12 becomes CTRL Break. Easier to remember.
+                * fixed a real nasty one: F8 fucked screen (CLS didn't work
+ 	          proper anymore. turned out to be a good old typo. Made some 
+                  major changes in proc maindebug. (ds -> cs)
+	        + NEW NEW NEW Symbolic File. Revision 1, Variables & Functions
+                * bugfuck: Errors while loading run flawless..
+		  check out the new error handling. Almost User friendly.
+		+ Double <'s on each side indicating there's more text there.
+		  (Had to create ClearEol for that)
+v1.3b
+		* Adding the Variable handling. (as in ppevar.doc)
+16,49 21.11.1996                   (works rudimentary.. ;)

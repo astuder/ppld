@@ -1,0 +1,107 @@
+PPe variable structure - The doc.
+
+
+Following the PPE header (terminated by an 01ah and about 30h long) are the 
+number of variables and the size of code. Very schematic:
+
+Header		30h
+MaxVar		2h
+CodeSize	2h
+Vars		variable 
+Code		variable
+
+Each Variable starts with the same sort of structure:
+
+word 	VarNum		2h
+byte	Dim		1h
+Word 	VarDims[2]	6h
+byte	VarType		1h
+		 
+This makes for a total of 0ah bytes of vardef. If the Variable was a string 
+(type 7) it continues like that:
+
+word 	StringLength
+char	String
+
+Otherwise (numeric types) it would be continuing like that:
+
+longint	cont1, cont2
+
+Typen (increasing order)
+
+type          No. in hex        other used fields
+
+Boolean       0
+Unsigned      1
+Date          2
+EDate         3
+Integer       4
+Money         5
+Real          6
+String        7
+Time          8
+Byte          9
+Word          0a
+sByte         0b
+sWord         0c
+Bigstr        0d
+DReal         0e
+---           0f
+---           10
+DDate         11
+
+
+How to find a ppe var-content in running pcb.
+
+This is not as easy as it sounds. Basically you will have to scan for something
+I call _REFSEG_, a central segment always used in the ppe running module. It may 
+look something like blah:4. (--> 01 00 ..) OK..
+(A little tip here. After ppldebug gives control to pcb, you'll find a 
+les bx, [bp-06] / on some versions [bp-12]...
+Take this es:bx and you'll have the REFSEG.)
+
+Now calculate x = your ppevarnum shl 2.
+pseudo: es:bx -> REFSEG
+	les	bx, es:[bx+4]
+	add	bx, x	( from the above calc )
+	follow  es:[bx-4]
+	follow	es:[bx+6]
+		At that point of time, your es:bx will be pointing on the vardef
+		inside pcb. It differs a little from the vardef found in ppe's, 
+		but then again it's quite similar. Look below for a complete table 
+		sorted after types..
+	follow 	es:[bx+6]
+	es:bx now points on a eventual string var..  
+
+			enjoy..;)
+
+The variable definition always starts with something like: ?? ?? (w type)
+It continues then with type dependent stuff:
+
+Type		Stuff
+0		(db Boolean) 	; True = 1, False = 0 -> not in ppld !
+1		(dd Unsigned)	
+2		(dw Julian Date)	; is this just a word ?
+3 		Example: 9610.1 -> (dw 9610),(db? 00) (last val zero based)
+4		(dw Integer, s)
+5		(dd Money, s)
+6		(dd Real) 5.6 made 33 33 b3 40 dump..
+7 		(dw length of string), (dd Pointer on String)
+8 		(dd Secs after Midnight (time))
+9		(db Byte)
+0a		(dw Word)
+0b		(db SByte, s)
+0c		(dw SWord, s)
+0d 		(dw length of string), (dd Pointer on Bigstr)
+0f		unknown
+10		unknown
+11		Does DDate exist ?
+
+
+		dX after TASM defs.. (db = byte, dw = word, etc)
+		,s means this one is signed.
+
+
+				.doc e! 17,33 11.08.1996 
+				(ripped from Chickens src of ppld)
+				(traced from pcb)

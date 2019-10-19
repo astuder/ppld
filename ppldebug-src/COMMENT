@@ -1,0 +1,7 @@
+To: Chicken 
+
+    - Pointer access with the [].. for better readability ? please ? ;)
+      (instead of SymText+2 SymText[2]..)
+
+To: eULE!
+
