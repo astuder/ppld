@@ -22,7 +22,7 @@ reverse engineering this feature was used for the good (adding functionality and
 licensing restrictions, distributing copies with added backdoors), 
 
 In 1996 PPLDebug was added to the package, adding source code debugging of a PPE while running on the BBS. PPLDebug
-is written in x86 assembler, and IIRC the majority of it was developed by @kschiess 
+is written in x86 assembler, and IIRC the majority of it was developed by [@kschiess](https://github.com/kschiess)
 
 ## Why put it on GitHub now?
 
