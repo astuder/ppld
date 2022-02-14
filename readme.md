@@ -5,10 +5,12 @@ and Turbo Assembler (TASM), and I don't know whether it still compiles.
 
 Released to the public domain for your entertainment. Warranty void.
 
+Update: Mike Krüger recently ported PPLD to Rust and is working on improvements and possibly an emulator to run .PPE files. Check out his project here: https://github.com/mkrueger/PPLEngine
+
 ## What does PPLD do?
 
 Back in the heyday of dial-up BBS, [PCBoard](https://en.wikipedia.org/wiki/PCBoard) was one of the leading 
-applications to run them. To add custom functionality, PCBoard came with its own programming language (PPL) and a
+applications to operate them. To add custom functionality, PCBoard came with its own programming language (PPL) and a
 compiler (PPLC) that turned the code into an executable module (PPE). PPLD is a decompiler that converts compiled
 PPEs back into source code.
 
