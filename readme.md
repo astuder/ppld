@@ -31,3 +31,31 @@ is written in x86 assembler, and IIRC the majority of it was developed by [@ksch
 I recently did major rework on the 8051 disassembler for the [radare2](https://radare.org) project, which reminded me
 of this reverse engineering project of mine from over 20 years ago. Excuse some of the language in the readme files,
 I was young, brash and in questionable control of the English language. ¯\\\_(ツ)\_/¯
+
+## Addendum March 5 2024
+
+There was no love lost between the PCBoard developers and us 1337 decompiler h4ck0rz. With version 15.3, PCBoard started
+encrypting PPEs. I still remember using Soft-ICE to rip the decryption routines from the running BBS software.
+
+Recently, I was made aware that the source code of PCBoard 15.3 can be found on the [internet](http://software.bbsdocumentary.com/IBM/DOS/PCBOARD/). A file named `CRYPT.C` contains this nugget:
+
+```
+#define SUCKLEN   17
+// static char *Suck = "DECOMPILERS SUCK!";  CRYPTO.EXE
+static char Suck[SUCKLEN] = {0x8C,0x53,0xB8,0xA7,0x9E,0x0F,0x0A,0xCB,0x28,
+  0x62,0x2D,0x50,0x7E,0x05,0x3D,0x4E,0x35};
+
+void LIBENTRY encrypt3(char *Str, int Len) {
+  int Recycle = SUCKLEN;
+  for (char *p = Suck; Len; Str++, Len--) {
+    *Str ^= *p + (char) Len;
+    if (--Recycle)
+      p++;
+    else {
+      p = Suck;
+      Recycle = SUCKLEN;
+    }
+  }
+}
+```
+As the PPLD source code doesn't contain the bytes of the `Suck` array, this may have been the moment when they won. I don't remember whether that's due to their crypto skillz, or whether I just got bored. :)
